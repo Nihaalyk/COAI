@@ -10,13 +10,21 @@ def convert_speech_to_text():
         audio = recognizer.listen(source)
     try:
         user_input = recognizer.recognize_google(audio)
+        print(user_input)
         return user_input
     except sr.UnknownValueError:
-        print("Could not understand audio")
+        error_feed="Could not understand audio"
+        print(error_feed)
+        tts = gTTS(text=error_feed, lang='en')
+        tts.save('error.mp3')
         return None
     except sr.RequestError as e:
-        print("Could not request results; {0}".format(e))
+        error_feed="Could not request results; {0}".format(e)
+        print(error_feed)
+        tts = gTTS(text=error_feed, lang='en')
+        tts.save('error.mp3')
         return None
+    
 
 def main():
     while True:
@@ -32,7 +40,8 @@ def main():
             # Convert bot response to audio
             tts = gTTS(text=response_text, lang='en')
             tts.save('response.mp3')
-            os.system('mpg123 response.mp3')  # Use any suitable audio player
+            os.system('cvlc response.mp3')  # Use any suitable audio player
+
 
 if __name__ == "__main__":
     main()

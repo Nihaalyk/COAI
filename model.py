@@ -19,6 +19,6 @@ def chatmodel(request_text):
             )
         ]
     )
-    response = chat.send_message(request_text, **parameters)
+    response = chat.send_message(request_text)
     print(f"Response from Model: {response.text}")
     return response.text
