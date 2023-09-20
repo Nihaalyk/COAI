@@ -13,7 +13,6 @@ def chatmodel(request_text):
     vertexai.init(project="tele-llm", location="us-central1")
     chat_model = ChatModel.from_pretrained("chat-bison@001")
     parameters = {
-        "candidate_count": 1,
         "max_output_tokens": 1000,
         "temperature": 0.7,
         "top_p": 0.8,
@@ -33,7 +32,7 @@ def chatmodel(request_text):
         ]
     )
     
-    response = chat.send_message(request_text)
+    response = chat.send_message("""request_text""", **parameters)
     
     # Add the current user input to the conversation history
     conversation_history.append(request_text)
