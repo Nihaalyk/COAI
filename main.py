@@ -40,7 +40,7 @@ def main():
             # Convert bot response to audio
             tts = gTTS(text=response_text, lang='en')
             tts.save('response.mp3')
-            os.system('cvlc response.mp3')  # Use any suitable audio player
+            os.system('mpg123 response.mp3')  # Use any suitable audio player
 
 
 if __name__ == "__main__":
