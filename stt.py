@@ -8,7 +8,6 @@ def convert_speech_to_text():
         audio = recognizer.listen(source)
     try:
         user_input = recognizer.recognize_google(audio)
-        print(user_input)
         return user_input
     except sr.UnknownValueError:
         error_feed="Could not understand audio"

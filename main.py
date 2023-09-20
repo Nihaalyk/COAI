@@ -1,7 +1,9 @@
 from stt import convert_speech_to_text
-from model import chatmodel
+from model2 import chatmodel
 from speak import speak
-import time 
+import time
+
+
 
 def main():
     while True:
@@ -15,7 +17,7 @@ def main():
             print("Bot:", response_text)
 
             speak(response_text)
-            time.sleep(1)
+            
 
 if __name__ == "__main__":
     main()
