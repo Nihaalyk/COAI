@@ -1,7 +1,6 @@
 from stt import convert_speech_to_text
 from model import chatmodel
 from speak import speak
-
 import time 
 
 def main():
