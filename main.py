@@ -1,7 +1,9 @@
 import speech_recognition as sr
 from model import chatmodel
+import pyaudio
 from gtts import gTTS
-import os
+import time 
+
 
 def convert_speech_to_text():
     recognizer = sr.Recognizer()
@@ -10,7 +12,6 @@ def convert_speech_to_text():
         audio = recognizer.listen(source)
     try:
         user_input = recognizer.recognize_google(audio)
-        print(user_input)
         return user_input
     except sr.UnknownValueError:
         error_feed="Could not understand audio"
@@ -24,7 +25,6 @@ def convert_speech_to_text():
         tts = gTTS(text=error_feed, lang='en')
         tts.save('error.mp3')
         return None
-    
 
 def main():
     while True:
@@ -40,8 +40,21 @@ def main():
             # Convert bot response to audio
             tts = gTTS(text=response_text, lang='en')
             tts.save('response.mp3')
-            os.system('mpg123 response.mp3')  # Use any suitable audio player
 
+            # Play the audio using PyAudio
+            p = pyaudio.PyAudio()
+            stream = p.open(format=p.get_format_from_width(2),
+                            channels=1,
+                            rate=44100,
+                            output=True)
+            with open('response.mp3', 'rb') as f:
+                audio_data = f.read()
+            stream.write(audio_data)
+            stream.stop_stream()
+            stream.close()
+            p.terminate()
+
+            time.sleep(1)
 
 if __name__ == "__main__":
     main()
